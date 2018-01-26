@@ -6,14 +6,12 @@ counter = 0;
 nodes = 4 ;
 N = nodes^2 ;
 MaxIt = 2000;
-SNR = [1:1:5];  %%%%% 20
+SNR = [1:1:20];
 f1 = figure;
 f2 = figure;
-min_node = 7; %%%%%% 3
-max_node = 7; %%%%%% 8
-%%%%%%%%%Edge_num = nchoosek(nodes,2);%for us to be able to define any number of edges                                 
-Allowed_Error = 1/100;   %%%%10bin
-
+min_node = 3; 
+max_node = 6;                               
+Allowed_Error = 1/10000;  
 
 %% This is for naming the data
 number = [min_node:1:max_node]';
@@ -47,11 +45,11 @@ for SNR_counter = 1:length(SNR)
 for monte = 1:montemax
     
      R = 1 ;                            % Data rate = 1 alindi
-     gama = 10^(SNR(SNR_counter)/10);                % Bu threshold tamamen Kimon'un formülüne göre belirlendi, detay bilmiyorum.
+     gama = 10^(SNR(SNR_counter)/10);                % Bu threshold tamamen Kimon'un formÃ¼lÃ¼ne gÃ¶re belirlendi, detay bilmiyorum.
      threshold = (2^R - 1) / gama ;
      StateContainer = zeros(size(Measured,1), MaxIt + 1 ); %for every monte, this will keep states
      
-     StateContainer(:,1) = Measured(:); %içine alamıyor tranpoz sorunu
+     StateContainer(:,1) = Measured(:); %iÃ§ine alamÃ½yor tranpoz sorunu
      
      FeedbackContainer = zeros(MaxIt,size(Measured,2));   %for every monte this will keep feedbacks
      
@@ -62,27 +60,25 @@ for monte = 1:montemax
      [ii,jj] = ndgrid(1:nodes);              % Used to choose the upper triangle of The Matrix
       A = zeros(nodes);                       % Adjacency Matrix's for all
       A(jj>ii) =  Edge_con;                   % Filling the upper Triangle
-      %WOW! A good way of filling a upper triangular according to threshold
+     
       Ranks(monte,6) = sum(sum(A));
       A = A + A';                             % Adjacency Matrix created
       D = diag(sum(A));                       % In-Degree Matrix created  
       L = D - A ;                             % Laplacian Matrix
            
-      L_Networks(monte,:,:) = L ; %her bir monte değişkeni birer L A ve D oluşturacak
-%       A_Networks(monte,:,:) = A ; %bunların rank'ı her şey olabilir %% sil
-%       D_Networks(monte,:,:) = D ; %bu şekilde Networks mü define edilmiş bana mı öyle geldi?
+      L_Networks(monte,:,:) = L ; %her bir monte deÃ°iÃ¾keni birer L A ve D oluÃ¾turacak
+
      
-      Ranks(monte,1) = rank(L) ;  %her bir monte değişkeni için matrix rank toplamaca
-%       Ranks(monte,2) = rank(A) ;
-%       Ranks(monte,3) = rank(D) ;
+      Ranks(monte,1) = rank(L) ;  %her bir monte deÃ°iÃ¾keni iÃ§in matrix rank toplamaca
+
       
       %% Now let's start iterating for every matrix in monte carlo
       
-      if rank(L) == nodes - 1 %bu sağlanmıyorsa alphaya ulaşılamadı ranks5 = 0
+      if rank(L) == nodes - 1 %bu saÃ°lanmÃ½yorsa alphaya ulaÃ¾Ã½lamadÃ½ ranks5 = 0
       d = max(max(D));
       epsilon_max = (1/d); %determining maximum step size
       epsilon = epsilon_max /1; %choosing the step size 
-      %% step size dışarı
+      %% step size dÃ½Ã¾arÃ½
       Ranks(monte,4) = 1; %we can reach alpha,consensus
       monte_counter = monte_counter + 1;
       
