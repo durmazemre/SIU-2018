@@ -1,3 +1,6 @@
+% 4 değişken var
+% monte , (node_min ve node_max) yani node sayısı , monte değişkeni(1e4), SNR
+
 clear; clc; close all;dbstop if error;
 %% Defining the System
 p = 1; %Signal power 
@@ -38,15 +41,16 @@ sz = size(Measured);
 Mysum = sum(Measured);
 Average = Mysum/sz(1);
 %% Starting to Monte Carlo
-montemax = 1e2;  %%%%e4                           %how many times monte carlo                         
-L_Networks = zeros(montemax,nodes,nodes); %thil is L matrix container
+montemax = 1e4;                           %how many times monte carlo                         
+L_Networks = zeros(montemax,nodes,nodes); %this is L matrix container
 Ranks = zeros(montemax,6);                %this will keep everything about matrices
-for SNR_counter = 1:length(SNR) 
+for SNR_counter = 1:length(SNR)      %(SNR conuter kullanılmasın) 
 for monte = 1:montemax
-    
+    % *** data rate bölümü başlangıcı ***
      R = 1 ;                            % Data rate = 1 alindi
      gama = 10^(SNR(SNR_counter)/10);                % Bu threshold tamamen Kimon'un formülüne göre belirlendi, detay bilmiyorum.
      threshold = (2^R - 1) / gama ;
+    % *** data rate bölümü bitişi ***
      StateContainer = zeros(size(Measured,1), MaxIt + 1 ); %for every monte, this will keep states
      
      StateContainer(:,1) = Measured(:); %içine alamýyor tranpoz sorunu
