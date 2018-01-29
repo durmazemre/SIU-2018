@@ -1,5 +1,5 @@
 % 4 değişken var
-% monte , (node_min ve node_max) yani node sayısı , monte değişkeni(1e4), SNR
+% monte ,  node sayısı (node_min ve node_max değiştirilerek belirlenebilir) , monte değişkeni(tavsiye edilen değer en az: 1e4), SNR
 
 clear; clc; close all;dbstop if error;
 %% Defining the System
@@ -128,6 +128,3 @@ semilogy(SNR,Average_It_Container,'x -');
 legend(names);
 title('Average Number of Iterations vs. Different SNR');
 end
-
-
-    
