@@ -22,7 +22,7 @@ names = int2str(number);
 for nodes = min_node:1:max_node
 switch nodes
       case 3
-          Measured = [-6 ; 2 ;18];   
+          Measured = [-6 ; 2 ; 18];   
       case 4
           Measured = [-6 ; -3 ; 7 ; 14 ];
       case 5
