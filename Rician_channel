@@ -1,0 +1,6 @@
+K=3;
+mu = sqrt( K/(2*(K+1)) );
+s = sqrt( 1/(2*(K+1)) );
+h_Rician=abs( s*randn(N,1) + mu ) + 1i*( s*randn(N,1) + mu ); %Rician fading
+threshold = (2^R - 1) / gama ;
+Edge_con = abs(h_Rician).^2 > threshold ;
