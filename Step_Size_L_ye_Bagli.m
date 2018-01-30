@@ -1,3 +1,6 @@
+% Step size değişiyor 
+% Rayleigh
+
 % 4 değişken var
 % monte ,  node sayısı (node_min ve node_max değiştirilerek belirlenebilir) , monte değişkeni(tavsiye edilen değer en az: 1e4), SNR
 
