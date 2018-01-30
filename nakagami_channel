@@ -10,3 +10,5 @@ h2=h.^2;
 h_Naka=sqrt( sum(h2));
 
 average_power=mean(h_Naka.^2)
+
+ Edge_con = abs(h_edge).^2 > threshold ;
