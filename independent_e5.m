@@ -1,4 +1,4 @@
-% Step size sabit
+% Step size sabit (epsilon)
 % Rayleigh
 
 clear; clc; close all;dbstop if error;
