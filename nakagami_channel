@@ -1,0 +1,12 @@
+Naka_m=4;
+M=100000;
+
+
+for d=1: 2*Naka_m
+    h(d,:)= (((randn(1,M))/sqrt(2*Naka_m)));  
+end
+
+h2=h.^2;
+h_Naka=sqrt( sum(h2));
+
+average_power=mean(h_Naka.^2)
