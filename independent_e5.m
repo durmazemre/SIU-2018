@@ -1,3 +1,6 @@
+% Step size sabit
+% Rayleigh
+
 clear; clc; close all;dbstop if error;
 %% Defining the System
 p = 1; %Signal power 
@@ -44,15 +47,15 @@ montemax = 1e5;                           %how many times monte carlo
 L_Networks = zeros(montemax,nodes,nodes); %thil is L matrix container
 Ranks = zeros(montemax,6);                %this will keep everything about matrices
 for SNR_counter = 1:length(SNR) 
-    tic %alttaki yazý 20 defa tekrarlanacak.Word'e kopyala ve onlarý say. Kalan zamaný hesapla.
+    tic % kalan zamanÄ± hesaplamak iÃ§in
 for monte = 1:montemax
     
      R = 1 ;                            % Data rate = 1 alindi
-     gama = 10^(SNR(SNR_counter)/10);                % Bu threshold tamamen Kimon'un formülüne göre belirlendi, detay bilmiyorum.
+     gama = 10^(SNR(SNR_counter)/10);                % Bu threshold tamamen Kimon'un formÃ¼lÃ¼ne gÃ¶re belirlendi, detay bilmiyorum.
      threshold = (2^R - 1) / gama ;
      StateContainer = zeros(size(Measured,1), MaxIt + 1 ); %for every monte, this will keep states
      
-     StateContainer(:,1) = Measured(:); %içine alamýyor tranpoz sorunu
+     StateContainer(:,1) = Measured(:); %iÃ§ine alamÃ½yor tranpoz sorunu
      
      FeedbackContainer = zeros(MaxIt,size(Measured,2));   %for every monte this will keep feedbacks
      
@@ -69,14 +72,14 @@ for monte = 1:montemax
       D = diag(sum(A));                       % In-Degree Matrix created  
       L = D - A ;                             % Laplacian Matrix
            
-      L_Networks(monte,:,:) = L ; %her bir monte deðiþkeni birer L A ve D oluþturacak
+      L_Networks(monte,:,:) = L ; %her bir monte deÃ°iÃ¾keni birer L A ve D oluÃ¾turacak
 
      
-      Ranks(monte,1) = rank(L) ;  %her bir monte deðiþkeni için matrix rank toplamaca
+      Ranks(monte,1) = rank(L) ;  %her bir monte deÃ°iÃ¾keni iÃ§in matrix rank toplamaca
       
       %% Now let's start iterating for every matrix in monte carlo
       
-      if rank(L) == nodes - 1 %bu saðlanmýyorsa alphaya ulaþýlamadý ranks5 = 0
+      if rank(L) == nodes - 1 %bu saÃ°lanmÃ½yorsa alphaya ulaÃ¾Ã½lamadÃ½ ranks5 = 0
      
       Ranks(monte,4) = 1; %we can reach alpha,consensus
       monte_counter = monte_counter + 1;
@@ -100,7 +103,7 @@ for monte = 1:montemax
       
       else
       Ranks(monte,4) = 0;
-      Ranks(monte,5) = 0; %bunun bu þekilde olmamasý gerekiyor. iterasyonu önle
+      Ranks(monte,5) = 0; %bunun bu Ã¾ekilde olmamasÃ½ gerekiyor. iterasyonu Ã¶nle
       end
       
 end
@@ -110,7 +113,7 @@ end
    Average_It_Container(1,SNR_counter) = Average_It_per_SNR;
    Succ_Probability = sum(Ranks(:,4)) / montemax;
    Probability_Container(1,SNR_counter) =  Succ_Probability;
-  toc 
+  toc  % kalan zamanÄ± hesaplamak iÃ§in
 end
 figure(f1);
 hold on;
