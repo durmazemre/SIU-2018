@@ -12,3 +12,4 @@ h_Naka=sqrt( sum(h2));
 average_power=mean(h_Naka.^2)
 
  Edge_con = abs(h_edge).^2 > threshold ;
+threshold = (2^R - 1) / gama ;
