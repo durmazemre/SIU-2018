@@ -1,4 +1,4 @@
-Naka_m=4;
+Naka_m=0.5;
 M=100000;
 
 
@@ -6,10 +6,15 @@ for d=1: 2*Naka_m
     h(d,:)= (((randn(1,M))/sqrt(2*Naka_m)));  
 end
 
-h2=h.^2;
-h_Naka=sqrt( sum(h2));
-
-average_power=mean(h_Naka.^2)
+h=h.^2;
+if Naka_m==0.5    %%Gauss
+    
+    h_Naka=sqrt(h);
+else
+    
+    h_Naka=sqrt( sum(h));
+end
+mean(h_Naka.^2)
 
  Edge_con = abs(h_edge).^2 > threshold ;
 threshold = (2^R - 1) / gama ;
