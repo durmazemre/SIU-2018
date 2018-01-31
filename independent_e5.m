@@ -10,7 +10,7 @@ epsilon = 1/100;  %step size determined random
 f1 = figure;
 f2 = figure;
 min_node = 3;
-max_node = 6;
+max_node = 8;
 
 %% This is for naming the data
 number = [min_node:1:max_node]';
@@ -117,7 +117,7 @@ end
 end
 figure(f1);
 hold on;
-semilogy(SNR,Probability_Container,'x -');
+semilogy(SNR,1-Probability_Container,'x -');
 legend(names);
 title('Propability of Reaching Consensus vs. Different SNR');
 
