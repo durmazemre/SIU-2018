@@ -1,7 +1,7 @@
 % Step size sabit
 %Rician deneme
 %1-prob + semilog
-%Hata verirse row-column değiştir rician ile ilgili olan yerde
+%Hata verirse row-column deÃ°iÃ¾tir rician ile ilgili olan yerde
 
 
 clear; clc; close all;dbstop if error;
@@ -50,21 +50,21 @@ montemax = 1e5;                           %how many times monte carlo
 L_Networks = zeros(montemax,nodes,nodes); %thil is L matrix container
 Ranks = zeros(montemax,6);                %this will keep everything about matrices
 for SNR_counter = 1:length(SNR) 
-    tic %alttaki yazı 20 defa tekrarlanacak.Word'e kopyala ve onları say. Kalan zamanı hesapla.
+    tic %alttaki yazÃ½ 20 defa tekrarlanacak.Word'e kopyala ve onlarÃ½ say. Kalan zamanÃ½ hesapla.
 for monte = 1:montemax
- % Rician başlangıcı    
+ % Rician baÃ¾langÃ½cÃ½    
     R = 1 ;                            % Data rate = 1 alindi
     K=3;					
     mu = sqrt( K/(2*(K+1)) );
     s = sqrt( 1/(2*(K+1)) );
 
-    %h_Rician=abs( s*randn(N,1) + mu ) + 1i*( s*randn(N,1) + mu );         %Rician fading    % N değişkeni Edge_num olabilir mi?   
+    %h_Rician=abs( s*randn(N,1) + mu ) + 1i*( s*randn(N,1) + mu );         %Rician fading    % N deÃ°iÃ¾keni Edge_num olabilir mi?   
     
     StateContainer = zeros(size(Measured,1), MaxIt + 1 ); %for every monte, this will keep states
-    StateContainer(:,1) = Measured(:); %içine alamıyor tranpoz sorunu  
+    StateContainer(:,1) = Measured(:); %iÃ§ine alamÃ½yor tranpoz sorunu  
     FeedbackContainer = zeros(MaxIt,size(Measured,2));   %for every monte this will keep feedbacks   
 
-    gama = 10^(SNR(SNR_counter)/10);  %gama değişmiyor (shannon, kapasite)
+    gama = 10^(SNR(SNR_counter)/10);  %gama deÃ°iÃ¾miyor (shannon, kapasite)
     threshold = (2^R - 1) / gama ;           % R=1 ?
     h_Rician=abs( s*randn(1,Edge_num) + mu ) + 1i*( s*randn(1,Edge_num) + mu ); 
     Edge_con = abs(h_Rician).^2 > threshold ;      
@@ -78,14 +78,14 @@ for monte = 1:montemax
       D = diag(sum(A));                       % In-Degree Matrix created  
       L = D - A ;                             % Laplacian Matrix
            
-      L_Networks(monte,:,:) = L ; %her bir monte değişkeni birer L A ve D oluşturacak
+      L_Networks(monte,:,:) = L ; %her bir monte deÃ°iÃ¾keni birer L A ve D oluÃ¾turacak
 
      
-      Ranks(monte,1) = rank(L) ;  %her bir monte değişkeni için matrix rank toplamaca
+      Ranks(monte,1) = rank(L) ;  %her bir monte deÃ°iÃ¾keni iÃ§in matrix rank toplamaca
       
       %% Now let's start iterating for every matrix in monte carlo
       
-      if rank(L) == nodes - 1 %bu sağlanmıyorsa alphaya ulaşılamadı ranks5 = 0
+      if rank(L) == nodes - 1 %bu saÃ°lanmÃ½yorsa alphaya ulaÃ¾Ã½lamadÃ½ ranks5 = 0
      
       Ranks(monte,4) = 1; %we can reach alpha,consensus
       monte_counter = monte_counter + 1;
@@ -109,7 +109,7 @@ for monte = 1:montemax
       
       else
       Ranks(monte,4) = 0;
-      Ranks(monte,5) = 0; %bunun bu şekilde olmaması gerekiyor. iterasyonu önle
+      Ranks(monte,5) = 0; %bunun bu Ã¾ekilde olmamasÃ½ gerekiyor. iterasyonu Ã¶nle
       end
       
 end
