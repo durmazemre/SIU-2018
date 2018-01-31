@@ -5,7 +5,7 @@ clear; clc; close all;dbstop if error;
 %% Defining the System
 p = 1; %Signal power 
 MaxIt = 2000;
-SNR = [1:1:20];
+SNR = [0:1:20];
 epsilon = 1/100;  %step size determined random
 f1 = figure;
 f2 = figure;
@@ -90,7 +90,7 @@ for monte = 1:montemax
       IterMeasured = P_epsilon * IterMeasured;  
       StateContainer(1:end,k) = IterMeasured(1:end);
       %% Defining an Error Rule
-      if max(IterMeasured) - min(IterMeasured) > Allowed_Error 
+      if abs(max(IterMeasured) - min(IterMeasured)) > Allowed_Error 
       counter = counter + 1;
       else
           Ranks(monte,5) = counter;
